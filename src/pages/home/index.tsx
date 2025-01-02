@@ -1,4 +1,4 @@
-import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaGithub, FaWhatsapp } from "react-icons/fa";
 import { Social } from "../../components/Social";
 import { useEffect, useState } from "react";
 import { collection, doc, getDoc, getDocs, orderBy, query } from "firebase/firestore";
@@ -12,15 +12,15 @@ interface LinkProps {
   color: string;
 }
 
-interface S0cialLinksProps {
-  facebook: string;
-  youtube: string;
-  instagram: string;
+interface SocialLinksProps {
+  github: string;
+  whatsapp: string;
+  // email: string;
 }
 
 export function Home() {
   const [links, setLinks] = useState<LinkProps[]>([]);
-  const [socialLinks, setSocialLInks] = useState<S0cialLinksProps>();
+  const [socialLinks, setSocialLInks] = useState<SocialLinksProps>();
 
   useEffect(() => {
     function loadLinks() {
@@ -53,9 +53,9 @@ export function Home() {
         .then((snapshot) => {
           if (snapshot.data() !== undefined) {
             setSocialLInks({
-              facebook: snapshot.data()?.facebook,
-              instagram: snapshot.data()?.instagram,
-              youtube: snapshot.data()?.youtube,
+              github: snapshot.data()?.github,
+              // email: snapshot.data()?.email,
+              whatsapp: snapshot.data()?.whatsapp,
             })
           }
         })
@@ -65,7 +65,7 @@ export function Home() {
 
   return (
     <div className="flex flex-col w-full py-4 items-center justify-center">
-      <h1 className="md:text-4xl text-3xl font-bold text-white mt-20">you name</h1>
+      <h1 className="md:text-4xl text-3xl font-bold text-white mt-20">Thalyson Ribeiro</h1>
       <span className="text-gray-50 mb-5 mt-3">veja meus links</span>
 
       <main className="flex flex-col w-11/12 max-w-xl text-center">
@@ -85,15 +85,15 @@ export function Home() {
 
         {socialLinks && Object.keys(socialLinks).length > 0 && (
           <footer className=" flex justify-center gap-3 my-4">
-            <Social url={socialLinks?.facebook}>
-              <FaFacebook size={35} color="#fff" />
+            <Social url={socialLinks?.github}>
+              <FaGithub size={35} color="#fff" />
             </Social>
-            <Social url={socialLinks?.youtube}>
-              <FaYoutube size={35} color="#fff" />
+            <Social url={socialLinks?.whatsapp}>
+              <FaWhatsapp size={35} color="#fff" />
             </Social>
-            <Social url={socialLinks?.instagram}>
-              <FaInstagram size={35} color="#fff" />
-            </Social>
+            {/* <Social url={socialLinks?.email}>
+              <FaEnvelope size={35} color="#fff" />
+            </Social> */}
           </footer>
         )}
       </main>
